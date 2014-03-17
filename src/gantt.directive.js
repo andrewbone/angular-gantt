@@ -42,6 +42,7 @@ gantt.directive('gantt', ['Gantt', 'dateFunctions', 'mouseOffset', 'debounce', '
             centerDate: "&",
             onGanttReady: "&",
             onRowAdded: "&",
+            onRowLabelClicked: "&",
             onRowClicked: "&",
             onRowUpdated: "&",
             onScroll: "&",
@@ -172,6 +173,16 @@ gantt.directive('gantt', ['Gantt', 'dateFunctions', 'mouseOffset', 'debounce', '
 
             $scope.raiseRowAddedEvent = function(row) {
                 $scope.onRowAdded({ event: { row: row } });
+            };
+
+            $scope.raiseDOMRowLabelClickedEvent = function(e, row) {
+                $scope.raiseRowLabelClickedEvent(row);
+                e.stopPropagation();
+                e.preventDefault();
+            };
+
+            $scope.raiseRowLabelClickedEvent = function(row) {
+                $scope.onRowLabelClicked({ event: { row: row} });
             };
 
             $scope.raiseDOMRowClickedEvent = function(e, row) {

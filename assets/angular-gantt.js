@@ -42,6 +42,7 @@ gantt.directive('gantt', ['Gantt', 'dateFunctions', 'mouseOffset', 'debounce', '
             centerDate: "&",
             onGanttReady: "&",
             onRowAdded: "&",
+            onRowLabelClicked: "&",
             onRowClicked: "&",
             onRowUpdated: "&",
             onScroll: "&",
@@ -172,6 +173,16 @@ gantt.directive('gantt', ['Gantt', 'dateFunctions', 'mouseOffset', 'debounce', '
 
             $scope.raiseRowAddedEvent = function(row) {
                 $scope.onRowAdded({ event: { row: row } });
+            };
+
+            $scope.raiseDOMRowLabelClickedEvent = function(e, row) {
+                $scope.raiseRowLabelClickedEvent(row);
+                e.stopPropagation();
+                e.preventDefault();
+            };
+
+            $scope.raiseRowLabelClickedEvent = function(row) {
+                $scope.onRowLabelClicked({ event: { row: row} });
             };
 
             $scope.raiseDOMRowClickedEvent = function(e, row) {
@@ -1616,7 +1627,7 @@ gantt.directive('gantt', ['Gantt', 'dateFunctions', 'mouseOffset', 'debounce', '
             var moveStartX;
             var scrollInterval;
 
-            $element.bind('mousedown', function (e) {
+           $element.bind('mousedown', function (e) {
                 var mode = getMode(e);
                 if (mode !== "") {
                     enableMoveMode(mode, e);
@@ -1839,7 +1850,7 @@ gantt.directive('gantt', ['Gantt', 'dateFunctions', 'mouseOffset', 'debounce', '
 
     return {
         restrict: "E",
-        template: "<div ng-transclude></div>",
+        template: "<div style='float:left' ng-transclude></div>",
         replace: true,
         transclude: true,
         scope: { row: "=ngModel", swap: "&", active: "=?" },

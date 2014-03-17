@@ -64,6 +64,10 @@
     padding-right: 12px;
 }
 
+.gantt-labels-row span:hover{
+    text-decoration: underline;
+}
+
 .gantt-labels-head-row {
     overflow: hidden;
     white-space: nowrap;

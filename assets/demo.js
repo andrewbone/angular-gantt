@@ -38,6 +38,11 @@ demoApp.controller("ctrl", ['$scope', function($scope) {
         console.log('Row event: ' + event.date + ' '  + event.row.description + ' (Custom data: ' + event.row.data + ')');
     };
 
+    $scope.rowLabelEvent = function(event) {
+        // A row has been added, updated or clicked. Use this event to save back the updated row e.g. after a user re-ordered it.
+        console.log(event.row);
+    };
+
     $scope.scrollEvent = function(event) {
         if (angular.equals(event.direction, "left")) {
             // Raised if the user scrolled to the left side of the Gantt. Use this event to load more data.
